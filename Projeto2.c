@@ -10,7 +10,7 @@ const uint8_t col_pins[COLS] = {5, 4, 3, 2};
 #define LED_GREEN 10
 #define LED_BLUE 11
 #define LED_RED 12
-#define BUZZER_PIN 28 
+#define BUZZER_PIN 21
 
 const char keys[ROWS][COLS] = {
     {'1', '2', '3', 'A'},
@@ -18,7 +18,6 @@ const char keys[ROWS][COLS] = {
     {'7', '8', '9', 'C'},
     {'*', '0', '#', 'D'}};
 
-// Função para inicializar o teclado
 void iniciar_teclado() {
     for (int i = 0; i < ROWS; i++) {
         gpio_init(row_pins[i]);
@@ -32,7 +31,6 @@ void iniciar_teclado() {
     }
 }
 
-// Função para obter a tecla pressionada
 char get_tecla() {
     for (int i = 0; i < ROWS; i++) {
         gpio_put(row_pins[i], 0);
@@ -48,12 +46,16 @@ char get_tecla() {
     return '\0'; // Nenhuma tecla pressionada
 }
 
-void controlar_buzzer(bool ligar) {
-    gpio_put(BUZZER_PIN, ligar ? 1 : 0);
+void tocar_buzzer(int frequencia, int duracao) {
+    for (int i = 0; i < duracao * 1000; i += (1000000 / frequencia) / 2) {
+        gpio_put(BUZZER_PIN, 1);
+        sleep_us((1000000 / frequencia) / 2);
+        gpio_put(BUZZER_PIN, 0);
+        sleep_us((1000000 / frequencia) / 2);
+    }
 }
 
 int main() {
-    // Inicializa os LEDs
     gpio_init(LED_GREEN);
     gpio_set_dir(LED_GREEN, GPIO_OUT);
     gpio_put(LED_GREEN, 0);
@@ -66,12 +68,10 @@ int main() {
     gpio_set_dir(LED_RED, GPIO_OUT);
     gpio_put(LED_RED, 0);
 
-
     gpio_init(BUZZER_PIN);
     gpio_set_dir(BUZZER_PIN, GPIO_OUT);
     gpio_put(BUZZER_PIN, 0); 
 
-    // Inicializa o teclado
     iniciar_teclado();
 
     while (1) {
@@ -80,17 +80,14 @@ int main() {
             printf("Tecla pressionada: %c\n", key);
 
             if (key == 'D') {
-                // Liga os LEDs e o buzzer
                 gpio_put(LED_GREEN, 1);
                 gpio_put(LED_BLUE, 1);
                 gpio_put(LED_RED, 1);
-                controlar_buzzer(true);
+                tocar_buzzer(1000, 1); // Frequência de 1000 Hz e duração de 1 segundo
             } else {
-                // Desliga os LEDs e o buzzer
                 gpio_put(LED_GREEN, 0);
                 gpio_put(LED_BLUE, 0);
                 gpio_put(LED_RED, 0);
-                controlar_buzzer(false);
             }
         }
         sleep_ms(100);
