@@ -7,7 +7,7 @@ endif()
 set(sdkVersion 2.1.0)
 set(toolchainVersion 13_3_Rel1)
 set(picotoolVersion 2.1.0)
-set(picoVscode ${USERHOME}/.pico-sdk/cmake/pico-vscode.cmake)
+set(picoVscode ${PICO_SDK_PATH}/cmake/pico_sdk_import.cmake)
 if (EXISTS ${picoVscode})
     include(${picoVscode})
 endif()
@@ -73,4 +73,3 @@ target_link_libraries(Projeto2
         )
 
 pico_add_extra_outputs(Projeto2)
-

@@ -10,6 +10,7 @@ const uint8_t col_pins[COLS] = {5, 4, 3, 2};
 #define LED_GREEN 10
 #define LED_BLUE 11
 #define LED_RED 12
+#define BUZZER_PIN 28 
 
 const char keys[ROWS][COLS] = {
     {'1', '2', '3', 'A'},
@@ -17,33 +18,27 @@ const char keys[ROWS][COLS] = {
     {'7', '8', '9', 'C'},
     {'*', '0', '#', 'D'}};
 
-void iniciar_teclado()
-{
-    for (int i = 0; i < ROWS; i++)
-    {
+// Função para inicializar o teclado
+void iniciar_teclado() {
+    for (int i = 0; i < ROWS; i++) {
         gpio_init(row_pins[i]);
         gpio_set_dir(row_pins[i], GPIO_OUT);
         gpio_put(row_pins[i], 1);
     }
-    for (int j = 0; j < COLS; j++)
-    {
+    for (int j = 0; j < COLS; j++) {
         gpio_init(col_pins[j]);
         gpio_set_dir(col_pins[j], GPIO_IN);
         gpio_pull_up(col_pins[j]);
     }
 }
 
-char get_tecla()
-{
-    for (int i = 0; i < ROWS; i++)
-    {
+// Função para obter a tecla pressionada
+char get_tecla() {
+    for (int i = 0; i < ROWS; i++) {
         gpio_put(row_pins[i], 0);
-        for (int j = 0; j < COLS; j++)
-        {
-            if (gpio_get(col_pins[j]) == 0)
-            {
-                while (gpio_get(col_pins[j]) == 0)
-                    ; // Aguarda a tecla ser solta
+        for (int j = 0; j < COLS; j++) {
+            if (gpio_get(col_pins[j]) == 0) {
+                while (gpio_get(col_pins[j]) == 0); // Aguarda a tecla ser solta
                 gpio_put(row_pins[i], 1);
                 return keys[i][j];
             }
@@ -53,9 +48,11 @@ char get_tecla()
     return '\0'; // Nenhuma tecla pressionada
 }
 
-int main()
-{
+void controlar_buzzer(bool ligar) {
+    gpio_put(BUZZER_PIN, ligar ? 1 : 0);
+}
 
+int main() {
     // Inicializa os LEDs
     gpio_init(LED_GREEN);
     gpio_set_dir(LED_GREEN, GPIO_OUT);
@@ -69,29 +66,31 @@ int main()
     gpio_set_dir(LED_RED, GPIO_OUT);
     gpio_put(LED_RED, 0);
 
+
+    gpio_init(BUZZER_PIN);
+    gpio_set_dir(BUZZER_PIN, GPIO_OUT);
+    gpio_put(BUZZER_PIN, 0); 
+
     // Inicializa o teclado
     iniciar_teclado();
 
-    while (1)
-    {
+    while (1) {
         char key = get_tecla();
-        if (key != '\0')
-        {
+        if (key != '\0') {
             printf("Tecla pressionada: %c\n", key);
 
-            if (key == 'D')
-            {
-                // Liga os LEDs
+            if (key == 'D') {
+                // Liga os LEDs e o buzzer
                 gpio_put(LED_GREEN, 1);
                 gpio_put(LED_BLUE, 1);
                 gpio_put(LED_RED, 1);
-            }
-            else
-            {
-                // Desliga os LEDs
+                controlar_buzzer(true);
+            } else {
+                // Desliga os LEDs e o buzzer
                 gpio_put(LED_GREEN, 0);
                 gpio_put(LED_BLUE, 0);
                 gpio_put(LED_RED, 0);
+                controlar_buzzer(false);
             }
         }
         sleep_ms(100);
