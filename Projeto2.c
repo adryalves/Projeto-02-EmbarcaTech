@@ -83,7 +83,7 @@ int main() {
                 gpio_put(LED_GREEN, 1);
                 gpio_put(LED_BLUE, 1);
                 gpio_put(LED_RED, 1);
-                tocar_buzzer(1000, 1); // Frequência de 1000 Hz e duração de 1 segundo
+                tocar_buzzer(1000, 1); 
             } else {
                 gpio_put(LED_GREEN, 0);
                 gpio_put(LED_BLUE, 0);
