@@ -18,25 +18,33 @@ const char keys[ROWS][COLS] = {
     {'7', '8', '9', 'C'},
     {'*', '0', '#', 'D'}};
 
-void iniciar_teclado() {
-    for (int i = 0; i < ROWS; i++) {
+void iniciar_teclado()
+{
+    for (int i = 0; i < ROWS; i++)
+    {
         gpio_init(row_pins[i]);
         gpio_set_dir(row_pins[i], GPIO_OUT);
         gpio_put(row_pins[i], 1);
     }
-    for (int j = 0; j < COLS; j++) {
+    for (int j = 0; j < COLS; j++)
+    {
         gpio_init(col_pins[j]);
         gpio_set_dir(col_pins[j], GPIO_IN);
         gpio_pull_up(col_pins[j]);
     }
 }
 
-char get_tecla() {
-    for (int i = 0; i < ROWS; i++) {
+char get_tecla()
+{
+    for (int i = 0; i < ROWS; i++)
+    {
         gpio_put(row_pins[i], 0);
-        for (int j = 0; j < COLS; j++) {
-            if (gpio_get(col_pins[j]) == 0) {
-                while (gpio_get(col_pins[j]) == 0); // Aguarda a tecla ser solta
+        for (int j = 0; j < COLS; j++)
+        {
+            if (gpio_get(col_pins[j]) == 0)
+            {
+                while (gpio_get(col_pins[j]) == 0)
+                    ; // Aguarda a tecla ser solta
                 gpio_put(row_pins[i], 1);
                 return keys[i][j];
             }
@@ -46,8 +54,10 @@ char get_tecla() {
     return '\0'; // Nenhuma tecla pressionada
 }
 
-void tocar_buzzer(int frequencia, int duracao) {
-    for (int i = 0; i < duracao * 1000; i += (1000000 / frequencia) / 2) {
+void tocar_buzzer(int frequencia, int duracao)
+{
+    for (int i = 0; i < duracao * 1000; i += (1000000 / frequencia) / 2)
+    {
         gpio_put(BUZZER_PIN, 1);
         sleep_us((1000000 / frequencia) / 2);
         gpio_put(BUZZER_PIN, 0);
@@ -55,7 +65,8 @@ void tocar_buzzer(int frequencia, int duracao) {
     }
 }
 
-int main() {
+int main()
+{
     gpio_init(LED_GREEN);
     gpio_set_dir(LED_GREEN, GPIO_OUT);
     gpio_put(LED_GREEN, 0);
@@ -70,27 +81,50 @@ int main() {
 
     gpio_init(BUZZER_PIN);
     gpio_set_dir(BUZZER_PIN, GPIO_OUT);
-    gpio_put(BUZZER_PIN, 0); 
+    gpio_put(BUZZER_PIN, 0);
 
     iniciar_teclado();
 
-    while (1) {
+    while (1)
+    {
         char key = get_tecla();
-        if (key != '\0') {
+        if (key != '\0')
+        {
             printf("Tecla pressionada: %c\n", key);
 
-            if (key == 'D') {
-                gpio_put(LED_GREEN, 1);
+            if (key == 'A')
+            {
+                gpio_put(LED_GREEN, 1); // Liga LED Verde
+                gpio_put(LED_BLUE, 0);  // Apaga os outros LEDs
+                gpio_put(LED_RED, 0);
+            }
+            else if (key == 'B')
+            {
+                gpio_put(LED_BLUE, 1); // Liga LED Azul
+                gpio_put(LED_GREEN, 0);
+                gpio_put(LED_RED, 0);
+            }
+            else if (key == 'C')
+            {
+                gpio_put(LED_RED, 1); // Liga LED Vermelho
+                gpio_put(LED_GREEN, 0);
+                gpio_put(LED_BLUE, 0);
+            }
+            else if (key == 'D')
+            {
+                gpio_put(LED_GREEN, 1); // Liga todos os LEDs
                 gpio_put(LED_BLUE, 1);
                 gpio_put(LED_RED, 1);
-                tocar_buzzer(1000, 1); 
-            } else {
+                tocar_buzzer(1000, 1);
+            }
+            else
+            {
                 gpio_put(LED_GREEN, 0);
                 gpio_put(LED_BLUE, 0);
                 gpio_put(LED_RED, 0);
             }
         }
-        sleep_ms(100);
+        sleep_ms(100); // Pequeno delay para evitar leitura repetida
     }
 
     return 0;
