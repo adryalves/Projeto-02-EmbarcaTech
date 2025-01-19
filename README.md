@@ -13,6 +13,9 @@
 - **Uriel Hapuque Barboza Santos**
 
 ---
+## **Link do vídeo de Ensaio**
+
+---
 
 ## **Descrição do Projeto**
 Este projeto implementa o controle de pinos GPIO de um **Raspberry Pi Pico W** utilizando um teclado matricial 4x4. O objetivo é controlar LEDs RGB e um buzzer com base nas teclas pressionadas, simulando o funcionamento no ambiente de desenvolvimento **Wokwi**.
@@ -65,7 +68,7 @@ Este projeto implementa o controle de pinos GPIO de um **Raspberry Pi Pico W** u
 ## Estrutura do Código
 
 ### Principais Arquivos
-- **`main.c`**: Contém a lógica principal para leitura do teclado e controle dos LEDs.
+- **`Projeto2.c`**: Contém a lógica principal para leitura do teclado e controle dos LEDs.
 - **`diagram.json`**: Configuração física do projeto no simulador Wokwi.
 - **`README.md`**: Documentação detalhada do projeto.
 
