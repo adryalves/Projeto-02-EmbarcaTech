@@ -117,6 +117,11 @@ int main()
                 gpio_put(LED_RED, 1);
                 tocar_buzzer(1000, 1);
             }
+            else if (key == '#'){
+              gpio_put(BUZZER_A, 1);
+              sleep_ms(100);
+              gpio_put(BUZZER_A, 0);
+            }
             else
             {
                 gpio_put(LED_GREEN, 0);
