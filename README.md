@@ -1,8 +1,6 @@
 # Projeto 02: **Controle de Pinos GPIO com Teclado Matricial**
 **EMBARCATECH - UNIDADE 04**
----
 
----
 
 ## Créditos
 **Desenvolvido pelo SubGrupo 9 - Grupo 4**
@@ -12,10 +10,10 @@
 - **Nivaldo Rodrigues da Silva Júnior**  
 - **Uriel Hapuque Barboza Santos**
 
----
+
 ## **Link do vídeo de Ensaio**
 
----
+
 
 ## **Descrição do Projeto**
 Este projeto implementa o controle de pinos GPIO de um **Raspberry Pi Pico W** utilizando um teclado matricial 4x4. O objetivo é controlar LEDs RGB e um buzzer com base nas teclas pressionadas, simulando o funcionamento no ambiente de desenvolvimento **Wokwi**.
@@ -26,17 +24,18 @@ Este projeto implementa o controle de pinos GPIO de um **Raspberry Pi Pico W** u
    - Tecla **A**: Liga o LED verde.
    - Tecla **B**: Liga o LED azul.
    - Tecla **C**: Liga o LED vermelho.
-   - Tecla **D**: Liga todos os LEDs simultaneamente.
+   - Tecla **D**: Liga todos os LEDs simultaneamente e aciona o buzzer por 1 segundo.
+   - Qualquer outra tecla: Apaga todos os LEDs.
 
-   2. **Teclado Matricial**:
+2. **Teclado Matricial**:
    - Leitura do teclado 4x4 para capturar as teclas pressionadas.
+
 3. **Controle do Buzzer**:
-   - Tecla **D** aciona o buzzer, que emite um som com frequência e duração predefinidas.
+  - O buzzer é acionado pela tecla **D** e emite um som com frequência de 1000 Hz por 1 segundo.
 
 4. **Extensibilidade**:
    - Código modular, com funções dedicadas para ligar/desligar LEDs, capturar teclas e controlar o buzzer.
 
----
 
 ## Requisitos
 
@@ -52,7 +51,6 @@ Este projeto implementa o controle de pinos GPIO de um **Raspberry Pi Pico W** u
 - **Pico SDK** configurado no ambiente de desenvolvimento
 - Simulador **Wokwi**
 
----
 
 ## Configuração do Projeto
 
@@ -69,7 +67,6 @@ Este projeto implementa o controle de pinos GPIO de um **Raspberry Pi Pico W** u
 
 4. Execute o projeto no simulador **Wokwi** ou faça o upload para o hardware físico do Raspberry Pi Pico W.
 
----
 
 ## Estrutura do Código
 
@@ -95,7 +92,6 @@ Este projeto implementa o controle de pinos GPIO de um **Raspberry Pi Pico W** u
 #### `void tocar_buzzer(int frequencia, int duracao)`
 - Aciona o buzzer com a frequência e duração especificadas.
 
----
 
 ## Simulação no Wokwi
 
@@ -103,7 +99,6 @@ Este projeto implementa o controle de pinos GPIO de um **Raspberry Pi Pico W** u
 2. Importe o arquivo `diagram.json` para visualizar a configuração física.
 3. Execute o código no simulador para verificar o funcionamento dos LEDs, do teclado matricial e do buzzer.
 
----
 
 ## Testes e Validação
 
@@ -111,10 +106,8 @@ Este projeto implementa o controle de pinos GPIO de um **Raspberry Pi Pico W** u
    - **A**: Apenas o LED verde deve acender.
    - **B**: Apenas o LED azul deve acender.
    - **C**: Apenas o LED vermelho deve acender.
-   - **D**: Todos os LEDs devem acender, e o buzzer deve emitir um som.
-   - **#**: Ativa o Buzzer
+   - **D**: Todos os LEDs devem acender, e o buzzer deve emitir um som de 1000 Hz por 1 segundo.
    - Outras teclas: Todos os LEDs devem apagar.
 
 3. Certifique-se de que o comportamento está de acordo com o esperado tanto no simulador quanto no hardware real.
 
----
