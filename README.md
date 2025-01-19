@@ -12,7 +12,7 @@
 
 
 ## **Link do vídeo de Ensaio**
-
+https://drive.google.com/file/d/1kH6LtFmuF-1HuEnGSQzd5xKeoVmxzLYN/view?usp=sharing 
 
 
 ## **Descrição do Projeto**
@@ -25,6 +25,7 @@ Este projeto implementa o controle de pinos GPIO de um **Raspberry Pi Pico W** u
    - Tecla **B**: Liga o LED azul.
    - Tecla **C**: Liga o LED vermelho.
    - Tecla **D**: Liga todos os LEDs simultaneamente e aciona o buzzer por 1 segundo.
+   - Tecla **#**^: Aciona o buzzer por 1 segundo.
    - Qualquer outra tecla: Apaga todos os LEDs.
 
 2. **Teclado Matricial**:
@@ -107,6 +108,7 @@ Este projeto implementa o controle de pinos GPIO de um **Raspberry Pi Pico W** u
    - **B**: Apenas o LED azul deve acender.
    - **C**: Apenas o LED vermelho deve acender.
    - **D**: Todos os LEDs devem acender, e o buzzer deve emitir um som de 1000 Hz por 1 segundo.
+   - **#**: O buzzer deve emitir um som de 1000 Hz por 1 segundo.
    - Outras teclas: Todos os LEDs devem apagar.
 
 3. Certifique-se de que o comportamento está de acordo com o esperado tanto no simulador quanto no hardware real.
