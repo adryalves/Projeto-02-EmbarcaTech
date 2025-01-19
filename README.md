@@ -25,7 +25,7 @@ Este projeto implementa o controle de pinos GPIO de um **Raspberry Pi Pico W** u
    - Tecla **B**: Liga o LED azul.
    - Tecla **C**: Liga o LED vermelho.
    - Tecla **D**: Liga todos os LEDs simultaneamente e aciona o buzzer por 1 segundo.
-   - Tecla **#**^: Aciona o buzzer por 1 segundo.
+   - Tecla **#**: Aciona o buzzer por 1 segundo.
    - Qualquer outra tecla: Apaga todos os LEDs.
 
 2. **Teclado Matricial**:
